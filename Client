@@ -1,0 +1,31 @@
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
+
+
+/**
+ *
+ * @author Hana
+ */
+class Client {
+    public static void main(String[] args)  {
+        try{
+        Socket sc = new Socket("localhost",5000);
+        InputStream in = sc.getInputStream();
+        OutputStream out = sc.getOutputStream();
+        String str = "hello server "+"\n";
+        byte bit[] = str.getBytes();
+        out.write(bit);
+        int c;
+        str = "";
+        c = in.read();
+        while(c!= -1) {
+            str = str+(char)c;
+            c = in.read();
+        }System.out.print(str);
+        sc.close();}
+        catch (IOException e ) 
+        {System.out.println (e);}
+    }
+}
