@@ -1,0 +1,37 @@
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+/**
+ *
+ * @author Hana
+ */
+public class Server{
+    public static void main(String[] args) {
+        ServerSocket ss;
+        Socket sc;
+    
+        try {
+            ss=new ServerSocket(5000,5);
+        
+        while(true){  
+        sc=ss.accept();
+        InputStream in=sc.getInputStream();
+        OutputStream out = sc.getOutputStream();
+        String str = " "+"\n";
+        byte bit[] = new byte[20];
+        int n = in.read(bit);
+        for(int i=0;i<n;i++)
+            str = str+(char)bit[i];
+            System.out.println(str);
+            str = str.toUpperCase();
+        byte buf[] = str.getBytes();
+        out.write(buf);
+        sc.close();}
+        } catch (IOException ex) {
+            System.out.println(ex);
+        }
+}
+}
